@@ -1,5 +1,6 @@
 include <common.scad>;
 
+// Flexspline made from a gear by making it hollow. Has full-length teeth.
 module flexspline_helix() {
   difference() {
      flexspline_helix_gear(flex_h, 0.4, 0);
@@ -11,21 +12,39 @@ module flexspline_helix() {
   }
 }
 
+// Improved flexspline. More flexible.
 module flexspline_helix_2() {
   difference() {
      intersection() {
-       flexspline_helix_gear(flex_h, 0.4, 0);
+       flexspline_helix_gear(flex_h, 0.4, 0); // The main gear shape.
        union() {
-          translate([0, 0, 2])
-            cylinder(r=flex_inner_r+20, h=arm1_h-arm_flex_base_bottom_h-2, $fn=60);
-          translate([0, 0, arm1_h-arm_flex_base_bottom_h])
-            cylinder(r1=flex_inner_r+flex_wt+2, r2=flex_inner_r+flex_wt, h=2, $fn=60);
-          cylinder(r1=flex_inner_r+flex_wt, r2=flex_inner_r+flex_wt+2, h=2, $fn=60);
-          cylinder(r=flex_inner_r+flex_wt, h=flex_h, $fn=60);
-          translate([0, 0, flex_h-tooth_overlap-2])
-            cylinder(r1=flex_inner_r+flex_wt, r2=flex_inner_r+flex_wt+2, h=2, $fn=60);
-          translate([0, 0, flex_h-tooth_overlap])
-            cylinder(r=flex_inner_r+flex_wt+2, h=tooth_overlap+1, $fn=60);
+          // The flexspline is made lighter by intersecting the main
+          // gear shape with the union of the following shapes.
+
+	 // The bottom toothing that fits into the arm base.
+	 translate([0, 0, 2])             
+	   cylinder(r=flex_inner_r+20, h=arm1_h-arm_flex_base_bottom_h-6, 
+		    $fn=60);
+	 // Slope from the bottom toothing the flat area.
+	 translate([0, 0, arm1_h-arm_flex_base_bottom_h-4])
+	   cylinder(r1=flex_inner_r+flex_wt+2, r2=flex_inner_r+flex_wt, 
+		    h=6, $fn=60);
+
+	 // Bottom slope, allows easier insertion into the arm base.
+	 cylinder(r1=flex_inner_r+flex_wt, r2=flex_inner_r+flex_wt+2, 
+		  h=2, $fn=60); 
+
+	 // The flat area, thickness from the wall thickness parameter.
+	 cylinder(r=flex_inner_r+flex_wt, h=flex_h, $fn=60);
+
+	 // Slope from the flat area to the top teeth.
+	 translate([0, 0, flex_h-tooth_overlap-6])
+	   cylinder(r1=flex_inner_r+flex_wt, r2=flex_inner_r+flex_wt+2, 
+		    h=6, $fn=60);
+
+	 // Top tooth area
+	 translate([0, 0, flex_h-tooth_overlap])
+	   cylinder(r=flex_inner_r+flex_wt+2, h=tooth_overlap+1, $fn=60);
        }
      }
      difference() {
