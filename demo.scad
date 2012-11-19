@@ -1,4 +1,6 @@
 include <common.scad>;
+include <arm1.scad>;
+include <arm2.scad>;
 
 module drive_assy() {
   translate([0, 0, assy_h]) rotate([0, 180, 0]) circspline_unit();
@@ -41,8 +43,8 @@ dmin = 100;
 dmax = 200;
 
 module demo_arms() {
-  xpos = 0;
-  ypos = ymin + 0;
+  xpos = 100;
+  ypos = ymin + 60;
 
   /* Rectilinear coordinate animation */
   /* xpos = ($t < 0.25) ? (xmin + $t * 4 * (xmax - xmin)) : 
@@ -142,7 +144,6 @@ module demo_whole() {
   }
 }
 
-//demo_arms();
+demo_arms();
 //demo_reachable();
-
-demo_whole();
+//demo_whole();
