@@ -44,7 +44,7 @@ r = nut_dia_perimeter/2+nut_surround_thickness;
 extra_height_varticalprint = r*sin(90-overhang_angle);
 
 // TEST - uncomment to render in openscad:
-lm8uu_holder_slim_double_vertical();		
+//lm8uu_holder_slim_double_vertical();		
 
 
 

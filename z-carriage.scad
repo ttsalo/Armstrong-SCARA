@@ -102,7 +102,7 @@ module carriage(use_truss) {
           mirror([-1, 0, 0]) arm_mount_void();
       }
       /* The smooth floor above the truss section */
-      translate([-carr_truss_width/2, -(circ_outer_r+1+carr_wt), //bearing_r + 2 - carr_truss_length, 
+      translate([-carr_truss_width/2, -(circ_outer_r+1+carr_wt),
 		     -carr_floor])
         cube([carr_truss_width, carr_truss_length, carr_floor]);
       /* translate([0, -(circ_outer_r + 1 + carr_wt) / 2, -carr_floor/2])
