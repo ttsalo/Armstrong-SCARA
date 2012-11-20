@@ -76,14 +76,13 @@ module carriage(use_truss) {
             arm_mount();
           translate([arm_spacing/2, 0, 0])
             mirror([-1, 0, 0]) arm_mount();
-          translate([-carr_truss_width/2, bearing_r + 2 - carr_truss_length, 
-		     -carr_floor])
+          translate([-carr_truss_width/2, -(circ_outer_r+1+carr_wt), -carr_floor])
             rotate([180, 0, 90])
 	    if (use_truss) {
 	      my_truss_platform(carr_truss_length, carr_truss_width, 
-				carr_truss_depth, truss_thickness, 
-				truss_thickness*truss_width_coeff, 
-				truss_radius);
+				carr_truss_depth, carr_truss_thickness, 
+				carr_truss_thickness*carr_truss_width_coeff, 
+				carr_truss_radius);
 	    } else {
 	      cube([carr_truss_length, carr_truss_width, carr_truss_depth]);
 	    }              
@@ -102,12 +101,16 @@ module carriage(use_truss) {
         translate([arm_spacing/2, 0, 0])
           mirror([-1, 0, 0]) arm_mount_void();
       }
-      translate([0, -(circ_outer_r + 1 + carr_wt) / 2, -carr_floor/2])
+      /* The smooth floor above the truss section */
+      translate([-carr_truss_width/2, -(circ_outer_r+1+carr_wt), //bearing_r + 2 - carr_truss_length, 
+		     -carr_floor])
+        cube([carr_truss_width, carr_truss_length, carr_floor]);
+      /* translate([0, -(circ_outer_r + 1 + carr_wt) / 2, -carr_floor/2])
         cube([arm_spacing + bearing_r * 2 + 4, circ_outer_r + carr_wt + 1, 
 	      carr_floor], center=true);
       translate([0, 0, -carr_floor/2])
         cube([arm_spacing + bearing_r * 2 + 4, (bearing_r + 2) * 2, 
-	      carr_floor], center=true);
+	      carr_floor], center=true); */
       translate([-arm_spacing/2, 0, 0])
         arm_mount_2();
       translate([arm_spacing/2, 0, 0])

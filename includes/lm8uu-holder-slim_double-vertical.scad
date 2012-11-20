@@ -31,6 +31,7 @@ nut_surround_thickness = 2;
 
 // main body dimensions
 body_wall_thickness = 2;
+extra_cyl_thickness = 2;
 body_width = LM8UU_dia + (2*body_wall_thickness);
 body_height = body_width;
 body_length = 60;
@@ -43,7 +44,7 @@ r = nut_dia_perimeter/2+nut_surround_thickness;
 extra_height_varticalprint = r*sin(90-overhang_angle);
 
 // TEST - uncomment to render in openscad:
-//lm8uu_holder_slim_double_vertical();		
+lm8uu_holder_slim_double_vertical();		
 
 
 
@@ -62,7 +63,7 @@ module lm8uu_holder_slim_double_vertical()
 				cube([body_width,body_length,(LM8UU_dia/2)+screw_bushing_space+(screw_thread_dia/2)+extra_height_varticalprint]);
 			translate([0,0,(LM8UU_dia/2)+body_wall_thickness])		
 				rotate([90,0,0])
-					cylinder(r=(LM8UU_dia/2)+body_wall_thickness, h=body_length, center=true);
+					cylinder(r=(LM8UU_dia/2)+body_wall_thickness + extra_cyl_thickness, h=body_length, center=true);
 	
 			// gap support
 			translate([-(gap_width/2)-body_wall_thickness,-(body_length/2),body_height/2])

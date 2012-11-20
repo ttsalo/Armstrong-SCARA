@@ -20,14 +20,7 @@ module arm1(length, type, use_truss) {
   difference() {
     union() {
       difference() {
-        // Use the arm full height for the flexspline base, but cut out material
-        // from the backside where it's not needed (much) (disabled, made it too weak)
-        cylinder(r=circ_outer_r, h=arm1_h, $fn=60);
-        /* translate([0, -circ_outer_r * 1.5, arm_flex_base_h])
-          rotate([0, -15, 0])
-            cube([circ_outer_r * 2, circ_outer_r * 3, arm1_h]);
-        translate([-circ_outer_r * 2, -circ_outer_r * 1.5, arm_flex_base_h])
-          cube([circ_outer_r * 2, circ_outer_r * 3, arm1_h]); */
+        cylinder(r=circ_outer_r, h=arm_flex_base_h, $fn=60);
       }
       translate([0, -arm_w/2, 0])
         if (use_truss == 0) { cube([length, arm_w, arm1_h]); }

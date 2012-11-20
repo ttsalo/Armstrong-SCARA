@@ -106,3 +106,12 @@ module z_end_bottom_clamp_bolts() {
   translate([0, 7, 0]) rotate([0, 90, 0]) cylinder(r=1.5, h=20);  
 }
 
+module circspline_mount(extra=0) {
+  translate([0, circ_mount_r, 0]) cylinder(r=8+extra, h=circ_mount_h, $fn=16);
+  translate([-8-extra, 0, 0]) cube([16+extra*2, circ_mount_r, circ_mount_h]);
+}
+
+module circspline_mount_void() {
+  translate([0, circ_mount_r, 0]) cylinder(r=2, h=circ_mount_h, $fn=16);
+}
+

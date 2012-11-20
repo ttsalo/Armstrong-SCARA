@@ -73,8 +73,8 @@ main_arm1_height = 12;
 main_arm2_height = 12;
 
 // Arm 1st segment dimensions
-arm_flex_base_bottom_h = 3;
-arm_flex_base_h = 8;
+arm_flex_base_bottom_h = 8;
+arm_flex_base_h = 14;
 arm_joint1_base_h = main_arm1_height;
 arm_joint1_base_r = 15;
 arm_joint1_bearing_indent = 7;
@@ -92,6 +92,10 @@ truss_thickness = 3.5;
 truss_width_coeff = 0.75;
 truss_radius = 0.1;
 truss_arm1 = 1.07; // Extra coefficient for arm1
+
+carr_truss_thickness = 5;
+carr_truss_width_coeff = 0.75;
+carr_truss_radius = 0.1;
 
 // Arm 2nd segment dimensions
 arm2_h = main_arm2_height;
@@ -127,12 +131,12 @@ echo(str("Arm base minimum rotation to clear other base: ", arm_base_maxrot));
 
 // Z carriage dimensions
 carr_floor = 1; // Carriage floor thickness.
-carr_wt = 3; // Carriage wall thickness.
-carr_truss_width = arm_spacing + bearing_r * 2 + 4; // 120;
+carr_wt = 4; // Carriage wall thickness.
+carr_truss_width = arm_spacing + bearing_r * 2 + 20; // 120;
 carr_truss_depth = 15;
 drive_h = assy_h + bearing_h + washer_h 
   + arm_flex_base_bottom_h; // Total length needed by the drive unit.
-carr_truss_length = circ_outer_r + 1 + carr_wt + bearing_r + 2;
+carr_truss_length = circ_outer_r + 1 + carr_wt + bearing_r + 10;
 carr_rod_offset = -45;
 carr_drive_offset = -40;
 carr_top_support_thickness = 3;
