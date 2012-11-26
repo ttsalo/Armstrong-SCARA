@@ -22,6 +22,7 @@ flex_inner_r = 25.4;
 flex_h = 36;
 flex_bottom_h = 2;
 flex_bolthole_r = 6;
+flex_bottom_tooth_h = 3; // The height of the straigth part of the bottom teeth
 flex_wt = 0.81;
 flex_lip = 1;
 pitch = 197;

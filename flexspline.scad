@@ -23,10 +23,10 @@ module flexspline_helix_2() {
 
 	 // The bottom toothing that fits into the arm base.
 	 translate([0, 0, 2])             
-	   cylinder(r=flex_inner_r+20, h=arm1_h-arm_flex_base_bottom_h-6, 
+	   cylinder(r=flex_inner_r+20, h=flex_bottom_tooth_h, 
 		    $fn=60);
 	 // Slope from the bottom toothing the flat area.
-	 translate([0, 0, arm1_h-arm_flex_base_bottom_h-4])
+	 translate([0, 0, flex_bottom_tooth_h+2])
 	   cylinder(r1=flex_inner_r+flex_wt+2, r2=flex_inner_r+flex_wt, 
 		    h=6, $fn=60);
 
