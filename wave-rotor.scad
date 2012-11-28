@@ -8,7 +8,7 @@ module wave_rotor() {
       cylinder(r=drive_bearing_spacing_r+drive_bearing_r-2, h=driver_h, $fn=60);
     }
     translate([0, 0, -driver_h/2 + (stepper_shaft_l - stepper_shaft_mid_rot) + driver_tol])
-    # difference() {
+    difference() {
       cylinder(r=2.5+driver_tol, h=driver_h, $fn=12);
       translate([-2.5, 2+driver_tol, 0]) cube([5, 5, driver_h]);
       translate([2+driver_tol, -2.5, 0]) cube([5, 5, driver_h]);
@@ -26,4 +26,4 @@ module wave_rotor() {
   }
 }
 
-rotate([90, 0, 0]) wave_rotor();
+rotate([-90, 0, 0]) wave_rotor();
