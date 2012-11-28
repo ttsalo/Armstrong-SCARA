@@ -39,6 +39,7 @@ circ_tooth_clearance = -0.5;
 wave_radius = 52.75/2;
 driver_h = 12;
 driver_w = 10;
+driver_tol = 0.15;
 drive_bearing_spacing_r = wave_radius - drive_bearing_r;
 
 // The total height of the drive unit, excluding the motor and flexspline base.
@@ -131,14 +132,14 @@ echo(str("Arm base minimum rotation to clear other base: ", arm_base_maxrot));
 
 // Z carriage dimensions
 carr_floor = 1; // Carriage floor thickness.
-carr_wt = 4; // Carriage wall thickness.
+carr_wt = 3.5; // Carriage wall thickness.
 carr_truss_width = arm_spacing + bearing_r * 2 + 20; // 120;
 carr_truss_depth = 15;
 drive_h = assy_h + bearing_h + washer_h 
   + arm_flex_base_bottom_h; // Total length needed by the drive unit.
 carr_truss_length = circ_outer_r + 1 + carr_wt + bearing_r + 10;
-carr_rod_offset = -45;
-carr_drive_offset = -40;
+carr_rod_offset = -46;
+carr_drive_offset = -41;
 carr_top_support_thickness = 3;
 carr_top_support_width = 14;
 carr_top_support_length = 70;

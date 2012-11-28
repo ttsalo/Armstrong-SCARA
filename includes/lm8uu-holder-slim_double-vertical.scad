@@ -31,10 +31,10 @@ nut_surround_thickness = 2;
 
 // main body dimensions
 body_wall_thickness = 2;
-extra_cyl_thickness = 2;
+extra_cyl_thickness = 1.5;
 body_width = LM8UU_dia + (2*body_wall_thickness);
 body_height = body_width;
-body_length = 60;
+body_length = 74;
 gap_width = rod_dia + 2;
 screw_bushing_space = 1;
 screw_elevation = LM8UU_dia + body_wall_thickness + (screw_thread_dia/2) +screw_bushing_space;
@@ -44,7 +44,7 @@ r = nut_dia_perimeter/2+nut_surround_thickness;
 extra_height_varticalprint = r*sin(90-overhang_angle);
 
 // TEST - uncomment to render in openscad:
-lm8uu_holder_slim_double_vertical();		
+//lm8uu_holder_slim_double_vertical();		
 
 
 
