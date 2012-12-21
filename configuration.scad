@@ -1,6 +1,6 @@
 // Harmonic drive main parameters
-press_angle = 40;
-flex_teeth = 50;
+press_angle = 35;
+flex_teeth = 60;
 teeth_diff = 2;
 
 tol = 0.25; // generic tolerance used in some places
@@ -19,14 +19,18 @@ drive_bearing_h = 7;
 
 // Flexspline dimensions
 flex_inner_r = 25.4;
+flex_outer_r = 27.6; // was 27.3; // Outer radius clips the teeth peaks, if needed.
 flex_h = 36;
 flex_bottom_h = 2;
 flex_bolthole_r = 6;
 flex_bottom_tooth_h = 3; // The height of the straigth part of the bottom teeth
-flex_wt = 0.81;
+flex_wt = 0.71;
 flex_lip = 1;
-pitch = 197;
-helix_twist = 5;
+pitch = 162;
+helix_twist = 0; // 3.5;
+flex_bottom_teeth = 50;
+flex_bottom_pitch = 197;
+bottom_press_angle = 40;
 
 // Circspline dimensions
 circ_h = 20;
@@ -37,7 +41,7 @@ circ_bottom_h = 4;
 circ_tooth_clearance = -0.5;
 
 // Wave driver dimensions
-wave_radius = 52.75/2;
+wave_radius = 52/2;
 driver_h = 12;
 driver_w = 10;
 driver_tol = 0.15;
@@ -94,6 +98,11 @@ truss_thickness = 3.5;
 truss_width_coeff = 0.75;
 truss_radius = 0.1;
 truss_arm1 = 1.07; // Extra coefficient for arm1
+
+// New style truss details
+truss_z_thickness = 3;
+truss_xy_thickness = 4;
+truss_bar_diameter = 4;
 
 carr_truss_thickness = 5;
 carr_truss_width_coeff = 0.75;

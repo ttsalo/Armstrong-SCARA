@@ -43,16 +43,16 @@ dmin = 100;
 dmax = 200;
 
 module demo_arms() {
-  xpos = 100;
-  ypos = ymin + 60;
+//  xpos = 100;
+//  ypos = ymin + 60;
 
   /* Rectilinear coordinate animation */
-  /* xpos = ($t < 0.25) ? (xmin + $t * 4 * (xmax - xmin)) : 
+  xpos = ($t < 0.25) ? (xmin + $t * 4 * (xmax - xmin)) : 
            (($t < 0.5) ? xmax : 
              (($t < 0.75) ? (xmin + (0.75 - $t) * 4 * (xmax - xmin)) : xmin));
   ypos = ($t < 0.25) ? ymin : 
            (($t < 0.5) ? (ymin + ($t - 0.25) * 4 * (ymax - ymin)) :
-             (($t < 0.75) ? ymax : (ymin + (1 - $t) * 4 * (ymax - ymin)))); */
+             (($t < 0.75) ? ymax : (ymin + (1 - $t) * 4 * (ymax - ymin))));
   /* Polar coordinate animation
   rpos = ($t < 0.25) ? (rmin + $t * 4 * (rmax - rmin)) : 
            (($t < 0.5) ? rmax : 
@@ -102,19 +102,33 @@ module demo_arms() {
 }
 
 module demo_reachable() {
-  for (x = [0 : 10 : 300]) {
-    for (y = [-200 + arm_spacing / 2 : 10 : 200 + arm_spacing / 2]) {
-        //echo(str("Arm rotations: ", arm21rot(x - arm_spacing, y), ", ", arm22rot(x, y)));
-        //echo(str("Pos: ", x, ", ", y));
-        //echo(str("Arm rotations: ", arm11rot(x, y - arm_spacing), ", ", arm12rot(x, y)));
+  for (x = [-100 : 10 : xrange + 100]) {
+    for (y = [0 : 10 : 300]) {
+//   for (x = [100: 10 : 100]) {
+//     for (y = [82+60 : 10 : 82+60]) {
+        echo(str("Arm2 rotations: ", arm21rot(x - xrange/2 + arm_spacing/2, y), ", ", arm22rot(x - xrange/2 - arm_spacing/2, y)));
+        echo(str("Pos: ", x, ", ", y));
+        echo(str("Arm1target: ", x - xrange/2 + arm_spacing/2, ", ", y));
+        echo(str("Arm2target: ", x - xrange/2 - arm_spacing/2, ", ", y));
+        echo(str("Arm rotations: ", arm11rot(x - xrange/2 + arm_spacing/2, y) - 90, ", ", arm12rot(x - xrange/2 - arm_spacing/2, y) - 90));
         //echo(str("Arm rotations OK: ", arm11rotlegal(arm11rot(x, y - arm_spacing)), ", ", arm12rotlegal(arm12rot(x, y))));
         //echo(str("Joint deflections: ", jointdefl(x, y - arm_spacing), ", ", jointdefl(x, y)));
-        if (arm21rot(x, y - arm_spacing) < 0 && arm22rot(x, y) > 0 &&
-            arm21rot(x, y - arm_spacing) > -arm_joint_maxrot && arm22rot(x, y) < arm_joint_maxrot &&
-            arm11rotlegal(arm11rot(x, y - arm_spacing)) && 
-            arm12rotlegal(arm12rot(x, y)) &&
-            ((arm11rot(x, y-arm_spacing) + arm21rot(x, y-arm_spacing) - arm12rot(x, y) - arm22rot(x, y)) > 180 
-             || (arm11rot(x, y-arm_spacing) + arm21rot(x, y-arm_spacing) - arm12rot(x, y) - arm22rot(x, y)) < 0)  )
+/*        if (arm21rot(x - xrange/2 + arm_spacing/2, y) < 0 && arm22rot(x - xrange/2 - arm_spacing/2, y) > 0 &&
+            arm21rot(x - xrange/2 + arm_spacing/2, y) > -arm_joint_maxrot && arm22rot(x - xrange/2 - arm_spacing/2, y) < arm_joint_maxrot &&
+            arm11rotlegal(arm11rot(x - xrange/2 + arm_spacing/2, y)) && 
+            arm12rotlegal(arm12rot(x - xrange/2 - arm_spacing/2, y)) &&
+            (((arm11rot(x - xrange/2 + arm_spacing/2, y) - 90) + arm21rot(x - xrange/2 + arm_spacing/2) - (arm12rot(x - xrange/2 - arm_spacing/2, y) - 90) - arm22rot(x - xrange/2 - arm_spacing/2, y)) > 180 
+             || ((arm11rot(x - xrange/2 + arm_spacing/2, y) - 90) + arm21rot(x - xrange/2 + arm_spacing/2, y) - (arm12rot(x - xrange/2 - arm_spacing/2, y) - 90) - arm22rot(x - xrange/2 - arm_spacing/2, y)) < 0)  ) */
+        if ( // Verify elbow joint rotations, maxrot is hand-tuned to prevent too crooked elbow angles.
+		arm21rot(x - xrange/2 + arm_spacing/2, y) < 0 && arm22rot(x - xrange/2 - arm_spacing/2, y) > 0 &&
+            arm21rot(x - xrange/2 + arm_spacing/2, y) > -arm_joint_maxrot && 
+            arm22rot(x - xrange/2 - arm_spacing/2, y) < arm_joint_maxrot
+            // Verify base joint rotations, must not hit the base of the other arm.
+//            && arm11rotlegal(arm11rot(x - xrange/2 + arm_spacing/2, y) - 90)
+//            && arm12rotlegal(arm12rot(x - xrange/2 - arm_spacing/2, y) - 90)
+//             && (((arm11rot(x - xrange/2 + arm_spacing/2, y) - 90) + arm21rot(x - xrange/2 + arm_spacing/2) - (arm12rot(x - xrange/2 - arm_spacing/2, y) - 90) - arm22rot(x - xrange/2 - arm_spacing/2, y)) > 180 
+//             || ((arm11rot(x - xrange/2 + arm_spacing/2, y) - 90) + arm21rot(x - xrange/2 + arm_spacing/2, y) - (arm12rot(x - xrange/2 - arm_spacing/2, y) - 90) - arm22rot(x - xrange/2 - arm_spacing/2, y)) < 0)
+            )
           {
           color("lime") translate([x, y, 0]) 
             if (x >= xmin && x <= xmax && y >= ymin && y <= ymax) {
@@ -144,6 +158,6 @@ module demo_whole() {
   }
 }
 
-demo_arms();
-//demo_reachable();
+//demo_arms();
+demo_reachable();
 //demo_whole();

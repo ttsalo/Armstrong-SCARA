@@ -16,10 +16,32 @@ module flexspline_helix() {
 module flexspline_helix_2() {
   difference() {
      intersection() {
-       flexspline_helix_gear(flex_h, 0.4, 0); // The main gear shape.
        union() {
-          // The flexspline is made lighter by intersecting the main
-          // gear shape with the union of the following shapes.
+	 difference() {
+         if (helix > 0) {  // The upper gear shape.
+  	   flexspline_helix_gear(flex_h, 0.4, 0);
+        } else {
+  	   flexspline_gear(flex_h, 0.4, 0);
+        }
+	   cylinder(r=flex_inner_r+20, h=flex_h/2, $fn=60);
+	 }
+	 gear(number_of_teeth=flex_bottom_teeth,
+	      circular_pitch=flex_bottom_pitch,
+	      pressure_angle=bottom_press_angle,
+	      clearance = 0,
+	      gear_thickness = flex_h/2,
+	      rim_thickness = flex_h/2,
+	      rim_width = 5,
+	      hub_thickness = flex_h/2,
+	      hub_diameter=0,
+	      bore_diameter=0,
+	      circles=0,
+	      backlash=0.4,
+	      twist=0);
+       }
+       union() {
+	 // The flexspline is made lighter by intersecting the main
+	 // gear shape with the union of the following shapes.
 
 	 // The bottom toothing that fits into the arm base.
 	 translate([0, 0, 2])             
@@ -39,12 +61,12 @@ module flexspline_helix_2() {
 
 	 // Slope from the flat area to the top teeth.
 	 translate([0, 0, flex_h-tooth_overlap-6])
-	   cylinder(r1=flex_inner_r+flex_wt, r2=flex_inner_r+flex_wt+2, 
+	   cylinder(r1=flex_inner_r+flex_wt, r2=flex_outer_r, 
 		    h=6, $fn=60);
 
 	 // Top tooth area
 	 translate([0, 0, flex_h-tooth_overlap])
-	   cylinder(r=flex_inner_r+flex_wt+2, h=tooth_overlap+1, $fn=60);
+	   cylinder(r=flex_outer_r, h=tooth_overlap+1, $fn=60);
        }
      }
      difference() {

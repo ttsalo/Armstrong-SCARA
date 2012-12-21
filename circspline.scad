@@ -69,7 +69,7 @@ module circspline_block() {
 module circspline_unit() {
   difference() {
     union() {
-      circspline_helix();
+      circspline();
       cylinder(r=circ_outer_r, h=circ_bottom_h, $fn=60);
       difference() {
         union() {
@@ -122,3 +122,4 @@ module circspline_unit_motor_mount() {
   }
 }
 
+circspline_unit();
