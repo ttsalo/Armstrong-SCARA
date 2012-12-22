@@ -106,4 +106,4 @@ module pyramid(x_pitch, y_pitch, z_pitch, bar_diameter, bar_fn)
     cylinder(r=bar_diameter/2, h=bar, $fn=bar_fn);
 }
 
-pyramid_box_truss(150, 30, 12, 8, 2, 3, 4, 3, 12);
+//pyramid_box_truss(150, 30, 12, 8, 2, 3, 4, 3, 12);
