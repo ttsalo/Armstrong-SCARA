@@ -103,6 +103,7 @@ truss_arm1 = 1.07; // Extra coefficient for arm1
 truss_z_thickness = 3;
 truss_xy_thickness = 4;
 truss_bar_diameter = 4;
+carr_truss_bar_diameter = 5;
 
 carr_truss_thickness = 5;
 carr_truss_width_coeff = 0.75;

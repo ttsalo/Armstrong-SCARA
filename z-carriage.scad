@@ -79,10 +79,10 @@ module carriage(use_truss) {
           translate([-carr_truss_width/2, -(circ_outer_r+1+carr_wt), -carr_floor])
             rotate([180, 0, 90])
 	    if (use_truss) {
-	      my_truss_platform(carr_truss_length, carr_truss_width, 
-				carr_truss_depth, carr_truss_thickness, 
-				carr_truss_thickness*carr_truss_width_coeff, 
-				carr_truss_radius);
+            pyramid_box_truss(carr_truss_length, carr_truss_width, 
+				carr_truss_depth,
+				 4, 8, truss_z_thickness, truss_xy_thickness,
+				 carr_truss_bar_diameter, 10);
 	    } else {
 	      cube([carr_truss_length, carr_truss_width, carr_truss_depth]);
 	    }              
