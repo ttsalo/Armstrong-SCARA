@@ -25,8 +25,8 @@ module arm1(length, type, use_truss) {
       translate([0, -arm_w/2, 0])
         if (use_truss == 0) { cube([length, arm_w, arm1_h]); }
         else { pyramid_box_truss(length, arm_w, arm1_h, 
-					10, 3, truss_z_thickness, truss_xy_thickness,
-					truss_bar_diameter, 10);
+				 10, 3, truss_z_thickness, truss_xy_thickness,
+				 truss_bar_diameter, 10);
 	}
       translate([length, 0, 0]) cylinder(r=arm_joint1_base_r, h=arm_joint1_base_h);
     }
