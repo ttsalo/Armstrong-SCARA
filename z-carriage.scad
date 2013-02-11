@@ -81,8 +81,9 @@ module carriage(use_truss) {
 	    if (use_truss) {
             pyramid_box_truss(carr_truss_length, carr_truss_width, 
 				carr_truss_depth,
-				 4, 8, truss_z_thickness, truss_xy_thickness,
-				 carr_truss_bar_diameter, 10);
+				 4, 8, 2,
+                 truss_z_thickness, truss_xy_thickness, truss_k_thickness,
+				 carr_truss_bar_diameter, true, true, 10);
 	    } else {
 	      cube([carr_truss_length, carr_truss_width, carr_truss_depth]);
 	    }              

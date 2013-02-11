@@ -9,8 +9,8 @@ module arm2(length, joint3_type, groovemount, use_truss) {
       translate([0, -arm_w/2, 0])
         if (use_truss == 1) {
 	   pyramid_box_truss(length, arm_w, arm2_h, 
-			     10, 3, truss_z_thickness, truss_xy_thickness,
-			     truss_bar_diameter, 10);
+			     15, 3, 1, truss_z_thickness, truss_xy_thickness, truss_k_thickness,
+			     truss_bar_diameter, true, true, 10);
         } else {
           cube([length, arm_w, arm2_h]); 
         }
