@@ -164,3 +164,10 @@ z_end_top_length = 50;
 z_end_bottom_height = 30;
 z_end_rod_offset = 24; // rod center from vertical plate
 
+// Frame dimensions
+frame_bottom_height = 30;
+frame_bottom_length = 100;
+frame_bottom_truss_z_thickness = 2.5;
+frame_bottom_truss_xy_thickness = 3;
+frame_bottom_truss_k_thickness = 2.5;
+frame_bottom_truss_bar_diameter = 2;
