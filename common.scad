@@ -81,27 +81,6 @@ module flexspline_gear(height, backlash, clearance) {
        );
 }
 
-// Variation of the truss_platform, does not try to make the edges
-// vertical but instead leaves them slanted.
-module my_truss_platform(length, width, height, thickness,
-			 element_width, radius) 
-{ 
-  segments = 2*floor(width/height)+1; 
-  seg_width = width/(segments+1);
-    
-  if (segments > 0)
-    for(i = [1 : segments])
-      {
-	translate([0, (seg_width)*(i-1)+2*seg_width*(1+pow(-1,i))/2, 
-		   (height)*(1+pow(-1,i))/2])
-	  {
-	    rotate([180*(1+pow(-1, i))/2, 0, 0])
-	      isoc_truss(length, seg_width*2, height, thickness, 
-			 element_width, radius);
-	  }
-      }
-}
-
 module z_end_bottom_clamp_bolts() {
   translate([0, -7, 0]) rotate([0, 90, 0]) cylinder(r=1.5, h=20);
   translate([0, 7, 0]) rotate([0, 90, 0]) cylinder(r=1.5, h=20);  

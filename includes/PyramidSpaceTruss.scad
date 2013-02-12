@@ -224,6 +224,74 @@ module pyramid_cylinder(r=0, h=0, $fn=12)
     cylinder(r1=r, r2=r*2, h=h*ch, $fn=$fn);
 }
 
+module box_bolt_pattern_lower(x, y, thickness, truss_xy_thickness, hole_r, clearance_r) {
+  box_one_side_bolts(x, y, thickness, hole_r, 0, clearance_r, false);
+  translate([x, 0, 0])
+    mirror([1, 0, 0])
+      box_one_side_bolts(x, y, thickness, hole_r, 0, clearance_r, false);
+    cube([truss_xy_thickness, y, thickness]);
+  translate([x-truss_xy_thickness, 0, 0])
+    cube([truss_xy_thickness, y, thickness]);
+
+}
+
+module box_bolt_pattern_upper(x, y, z, thickness, truss_xy_thickness,
+                              hole_r, hex_r, clearance_r) {
+  translate([0, 0, z - thickness]) {
+    box_one_side_bolts(x, y, thickness, hole_r, hex_r, clearance_r, true);
+    translate([x, 0, 0])
+      mirror([1, 0, 0])
+        box_one_side_bolts(x, y, thickness, hole_r, hex_r, clearance_r, true);
+  }
+  translate([0, 0, z-clearance_r*2-thickness-truss_xy_thickness])
+    intersection() {
+      cube([truss_xy_thickness, y, clearance_r*2+thickness+truss_xy_thickness]);
+      translate([truss_xy_thickness/2, 0, 0])
+        rotate([0, -45, 0])
+          cube([clearance_r*3, y, clearance_r*3]);
+    }
+  translate([x, 0, 0])
+  mirror([1, 0, 0])
+  translate([0, 0, z-clearance_r*2-thickness-truss_xy_thickness])
+    intersection() {
+      cube([truss_xy_thickness, y, clearance_r*2+thickness+truss_xy_thickness]);
+      translate([truss_xy_thickness/2, 0, 0])
+        rotate([0, -45, 0])
+          cube([clearance_r*3, y, clearance_r*3]);
+    }
+}
+
+module box_one_side_bolts(x, y, thickness, hole_r, hex_r, clearance_r, supported) {
+  for (offset = [0 , y - 2*clearance_r]) {
+    intersection () {
+      union () {
+        translate([-clearance_r, clearance_r+offset, 0])
+          difference() {
+            union () {
+              translate([0, 0, -clearance_r*3])
+                cylinder(r=clearance_r, h=thickness+clearance_r*3);
+              translate([0, -clearance_r, -clearance_r*3])
+                cube([clearance_r, clearance_r*2, thickness+clearance_r*3]);
+            }
+            cylinder(r=hole_r, h=thickness);
+          }        
+      }
+      union () {
+        if (supported) {
+          difference() {
+            translate([0, clearance_r+offset, -clearance_r*2])
+              cylinder(r1=0, r2=clearance_r*3, h=clearance_r*3);
+            translate([-clearance_r, clearance_r+offset, -clearance_r*2])
+              cylinder(r=hex_r, h=clearance_r*2, $fn=6);
+          }
+        }
+        translate([0, clearance_r+offset, 0])
+          cylinder(r=clearance_r*3, h=clearance_r*3);
+      }
+    }
+  }
+}
+
 //pyramid_truss(180, 100, 30, 3, 2, 3.5, 5, 5, 5, 12, 0);
 //multi_pyramid_truss(180, 100, 60, 4, 4, 3, 3.5, 5, 5, 5, 12);
 //multi_pyramid_cube_truss(180, 100, 60, 4, 3, 2, 3.5, 5, 5, 5, 12);
