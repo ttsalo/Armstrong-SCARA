@@ -172,9 +172,11 @@ module truss_side_lattice(z_size, x_segs, x_pitch, bar_diameter, bar_fn,
                           cornerbars, crossbars1=0, crossbars2=0)
 {
   /* Vertical bars */
-  for (x = [(cornerbars ? 0 : 1) : (cornerbars ? x_segs : x_segs - 1)]) {
-    translate([x * x_pitch, 0, 0])
-      pyramid_cylinder(r=bar_diameter/2, h=z_size, $fn=bar_fn);
+  if (x_segs > 1 || cornerbars == 1) {
+    for (x = [(cornerbars ? 0 : 1) : (cornerbars ? x_segs : x_segs - 1)]) {
+      translate([x * x_pitch, 0, 0])
+        pyramid_cylinder(r=bar_diameter/2, h=z_size, $fn=bar_fn);
+    }
   }
   /* Slanted crossbars */
   if (crossbars1)
@@ -351,4 +353,4 @@ module box_one_side_bolts(x, y, thickness, hole_r, hex_r, clearance_r,
 }
 
 sw = 3.4; // slat width for testing
-//pyramid_box_truss(40, 40, 40, 1, 1, 2, sw, sw, sw, sw, 1, 1, 12);
+//pyramid_box_truss(40, 40, 40, 2, 1, 2, sw, sw, sw, sw, 1, 1, 12);
