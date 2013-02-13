@@ -23,6 +23,8 @@ module frame_bottom() {
                                        frame_bottom_truss_xy_thickness,
                                        frame_bottom_truss_k_thickness,
                                        frame_bottom_truss_bar_diameter, true, true, 10);
+        box_bolt_pattern_side(arm_spacing, frame_bottom_length, frame_bottom_height,
+                               5, frame_back_truss_xy_thickness, 2, 6, false);
         /* Vertical truss. */
         translate([0, -frame_back_depth, 0]) {
           pyramid_box_truss(frame_back_width, frame_back_depth,
@@ -33,7 +35,8 @@ module frame_bottom() {
                                        frame_back_truss_bar_diameter, true, true, 10);
           box_bolt_pattern_upper(frame_back_width, frame_back_depth, frame_back_height, 
                                  frame_back_truss_xy_thickness, 5, 2, 4, 6);
-          box_bolt_pattern_lower(frame_back_width, frame_back_depth + frame_bottom_length - 28, 5, frame_back_truss_xy_thickness, 2, 6);
+          box_bolt_pattern_lower(frame_back_width, frame_back_depth + frame_bottom_length - 28, 
+                                 5, frame_back_truss_xy_thickness, 2, 6);
         }       
       }
 		/* Z drive rod passthrough solid */
