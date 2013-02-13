@@ -91,14 +91,6 @@ arm1_h = main_arm1_height;
 // default length
 length = 100;
 
-// Truss generation parameters. The element width must be smaller than
-// thickness to avoid the top becoming unprintable (triangle outlines
-// over thin air)
-truss_thickness = 3.5;
-truss_width_coeff = 0.75;
-truss_radius = 0.1;
-truss_arm1 = 1.07; // Extra coefficient for arm1
-
 // New style truss details
 truss_z_thickness = 2.5;
 truss_xy_thickness = 3;
@@ -163,6 +155,15 @@ z_end_bottom_length = 40;
 z_end_top_length = 50;
 z_end_bottom_height = 30;
 z_end_rod_offset = 24; // rod center from vertical plate
+
+// Printable area and bed
+print_ymin = 82; // Y=0 offset from arm bases (verify by simulation, see demo.scad)
+print_xmax = 200;
+print_ymin_frame_offset = -carr_rod_offset + z_end_rod_offset + print_ymin;
+bed_bolt_r = 2;
+bed_bolts = [[40, 20, 0], [40, 80, 0], [160, 50, 0]];
+
+echo(str("Print area Y=0 offset from vertical frame: ", print_ymin_frame_offset));
 
 // Frame dimensions
 frame_bottom_height = 30;
