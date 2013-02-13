@@ -34,7 +34,7 @@ module frame_bottom() {
                                        frame_back_truss_k_thickness,
                                        frame_back_truss_bar_diameter, true, true, 10);
           box_bolt_pattern_upper(frame_back_width, frame_back_depth, frame_back_height, 
-                                 frame_back_truss_xy_thickness, 5, 2, 4, 6);
+                                 frame_back_truss_xy_thickness, 5, 2, 4, 6, 0.3);
           box_bolt_pattern_lower(frame_back_width, frame_back_depth + frame_bottom_length - 28, 
                                  5, frame_back_truss_xy_thickness, 2, 6);
         }       
