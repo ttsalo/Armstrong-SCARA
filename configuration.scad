@@ -172,17 +172,17 @@ frame_extend_height = 80;
 frame_back_depth = 40;
 frame_back_width = arm_spacing;
 
-frame_bottom_truss_z_thickness = 2.5;
-frame_bottom_truss_xy_thickness = 3;
-frame_bottom_truss_k_thickness = 2.5;
-frame_bottom_truss_bar_diameter = 2;
+frame_bottom_truss_z_thickness = 2.4;
+frame_bottom_truss_xy_thickness = 3.4;
+frame_bottom_truss_k_thickness = 3.4;
+frame_bottom_truss_bar_diameter = 3.4;
 
-frame_back_truss_z_thickness = 2.5;
-frame_back_truss_xy_thickness = 3;
-frame_back_truss_k_thickness = 2.5;
-frame_back_truss_bar_diameter = 2;
+frame_back_truss_z_thickness = 2.4;
+frame_back_truss_xy_thickness = 3.4;
+frame_back_truss_k_thickness = 3.4;
+frame_back_truss_bar_diameter = 3.4;
 
 frame_extend_truss_z_thickness = 2.4;
-frame_extend_truss_xy_thickness = 3.3;
-frame_extend_truss_k_thickness = 3.3;
-frame_extend_truss_bar_diameter = 2.2;
+frame_extend_truss_xy_thickness = 3.4;
+frame_extend_truss_k_thickness = 3.4;
+frame_extend_truss_bar_diameter = 3.4;

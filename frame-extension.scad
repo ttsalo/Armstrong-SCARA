@@ -7,7 +7,7 @@ include <common.scad>;
 module frame_extension() {
   pyramid_box_truss(frame_back_width, frame_back_depth,
                                        frame_extend_height,
-                                       4, 2, 4, frame_extend_truss_z_thickness, 
+                                       2, 1, 4, frame_extend_truss_z_thickness, 
                                        frame_extend_truss_xy_thickness,
                                        frame_extend_truss_k_thickness,
                                        frame_extend_truss_bar_diameter, true, true, 10);

@@ -295,6 +295,6 @@ module box_one_side_bolts(x, y, thickness, hole_r, hex_r, clearance_r, supported
 //pyramid_truss(180, 100, 30, 3, 2, 3.5, 5, 5, 5, 12, 0);
 //multi_pyramid_truss(180, 100, 60, 4, 4, 3, 3.5, 5, 5, 5, 12);
 //multi_pyramid_cube_truss(180, 100, 60, 4, 3, 2, 3.5, 5, 5, 5, 12);
-tw = 0.55; // track width for testing
+tw = 3.4; // slat width for testing
 //pyramid_box_truss(70, 70, 70, 2, 2, 2, tw*6, tw*6, tw*6, tw*6, 1, 1, 12);
-//pyramid_box_truss(70, 70, 30, 3, 4, 2, tw*6, tw*6, tw*6, tw*2, 1, 1, 12);
+//pyramid_box_truss(30, 30, 30, 1, 1, 2, tw, tw, tw, tw, 1, 1, 12);
