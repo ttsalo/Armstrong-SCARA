@@ -5,7 +5,7 @@
 
    x_size, y_size, z_size: the total size of the structure
 
-   x_segs, y_segs, z_segs: the number of segments in each dimension
+   x_segs, y_segs, z_segs: the number of segments in each dimension.
      z_segs should be divisible by two. If z_segs is 1, falls back to
      basic pyramid truss without the side lattices.
 
@@ -13,9 +13,11 @@
 
    slat_xy_thickness: the horizontal thickness of the rectangular bars
 
+   slat_k_thickness: the horizontal thickness of the diagonal rectangular bars
+
    bar_diameter: the diameter of the vertical and slanted round bars
 
-   crossbars1, crossbars2: each 0 or 1 depending on if crossbars are
+   crossbars1, crossbars2: each true or false depending on if crossbars are
      wanted at the sides
 
    bar_fn: used as the $fn parameter for the round bars
@@ -36,36 +38,36 @@ pyramid_box_truss(x_size, y_size, z_size, x_segs, y_segs, z_segs,
                     slat_z_thickness, slat_xy_thickness, slat_k_thickness,
                     bar_diameter, bar_fn, (z % 2));
   }
-  if (z_segs > 1) {
-  intersection () {
-    cube([x_size, y_size, z_size]);
 
-    for (z = [0 : z_segs / 2 - 1]) {
-	  /* The side lattice sections will use a slightly different pitch
-         than the main truss
-         if the bar diameter differs from the XY slat thickness. This is
-         necessary to get the bars positioned correctly in the corners
-         of the box structure. */
-      translate([bar_diameter/2, bar_diameter/2, z * 2 * z_pitch])
-        truss_side_lattice(z_pitch * 2 + slat_z_thickness, x_segs,
-                           (x_size - bar_diameter) / x_segs, 
-                           bar_diameter, bar_fn, 1, crossbars1, crossbars2);
-      translate([bar_diameter/2, y_size - bar_diameter/2, z * 2 * z_pitch])
-        truss_side_lattice(z_pitch * 2 + slat_z_thickness, x_segs,
-                           (x_size - bar_diameter) / x_segs, 
-                           bar_diameter, bar_fn, 1, crossbars1, crossbars2);
-      translate([bar_diameter/2, bar_diameter/2, z * 2 * z_pitch])
-        rotate([0, 0, 90])
-        truss_side_lattice(z_pitch * 2 + slat_z_thickness, y_segs,
-                          (y_size - bar_diameter) / y_segs, 
-                           bar_diameter, bar_fn, 0, crossbars1, crossbars2);
-      translate([x_size - bar_diameter/2, bar_diameter/2, z * 2 * z_pitch])
-        rotate([0, 0, 90])
-        truss_side_lattice(z_pitch * 2 + slat_z_thickness, y_segs,
-                          (y_size - bar_diameter) / y_segs, 
-                           bar_diameter, bar_fn, 0, crossbars1, crossbars2);
+  if (z_segs > 1) {
+    intersection () {
+      cube([x_size, y_size, z_size]);
+      for (z = [0 : z_segs / 2 - 1]) {
+        /* The side lattice sections will use a slightly different
+           pitch than the main truss if the bar diameter differs from
+           the XY slat thickness. This is necessary to get the bars
+           positioned correctly in the corners of the box
+           structure. */
+        translate([bar_diameter/2, bar_diameter/2, z * 2 * z_pitch])
+          truss_side_lattice(z_pitch * 2 + slat_z_thickness, x_segs,
+                             (x_size - bar_diameter) / x_segs, 
+                             bar_diameter, bar_fn, 1, crossbars1, crossbars2);
+        translate([bar_diameter/2, y_size - bar_diameter/2, z * 2 * z_pitch])
+          truss_side_lattice(z_pitch * 2 + slat_z_thickness, x_segs,
+                             (x_size - bar_diameter) / x_segs, 
+                             bar_diameter, bar_fn, 1, crossbars1, crossbars2);
+        translate([bar_diameter/2, bar_diameter/2, z * 2 * z_pitch])
+          rotate([0, 0, 90])
+          truss_side_lattice(z_pitch * 2 + slat_z_thickness, y_segs,
+                             (y_size - bar_diameter) / y_segs, 
+                             bar_diameter, bar_fn, 0, crossbars1, crossbars2);
+        translate([x_size - bar_diameter/2, bar_diameter/2, z * 2 * z_pitch])
+          rotate([0, 0, 90])
+          truss_side_lattice(z_pitch * 2 + slat_z_thickness, y_segs,
+                             (y_size - bar_diameter) / y_segs, 
+                             bar_diameter, bar_fn, 0, crossbars1, crossbars2);
+      }
     }
-  }
   }
 }
 
@@ -73,8 +75,8 @@ pyramid_box_truss(x_size, y_size, z_size, x_segs, y_segs, z_segs,
    sections stacked on each other, with sections becoming one segment
    smaller each step up. */
 module multi_pyramid_truss(x_size, y_size, z_size, x_segs, y_segs, z_segs,
-                           slat_z_thickness, slat_xy_thickness, slat_k_thickness,
-                           bar_diameter, bar_fn)
+                           slat_z_thickness, slat_xy_thickness, 
+                           slat_k_thickness, bar_diameter, bar_fn)
 {
   x_pitch = (x_size - slat_xy_thickness) / x_segs;
   y_pitch = (y_size - slat_xy_thickness) / y_segs;
@@ -110,7 +112,8 @@ module pyramid_truss(x_size, y_size, z_size, x_segs, y_segs,
           translate([x_pitch/2, y_pitch/2, z_size - slat_z_thickness])
             truss_lattice(x_size - x_pitch, y_size - y_pitch, x_segs - 1, 
                           y_segs - 1, x_pitch, y_pitch,
-                          slat_z_thickness, slat_xy_thickness, slat_k_thickness);
+                          slat_z_thickness, slat_xy_thickness, 
+                          slat_k_thickness);
           translate([slat_xy_thickness/2, slat_xy_thickness/2, 
                      slat_z_thickness/2])
             for (x = [ 0 : x_segs - 1]) {
@@ -121,7 +124,7 @@ module pyramid_truss(x_size, y_size, z_size, x_segs, y_segs,
               }
             }
         }
-     }
+  }
 }
 
 /* One truss lattice layer. Horizontal rectangular grid, with given Z
@@ -187,7 +190,8 @@ module truss_side_lattice(z_size, x_segs, x_pitch, bar_diameter, bar_fn,
       translate([x * x_pitch, 0, 0])
         rotate([0, -atan2(x_pitch, z_size), 0])
         pyramid_cylinder(r=bar_diameter/2, h=sqrt(x_pitch * x_pitch + 
-                                                  z_size * z_size), $fn=bar_fn);
+                                                  z_size * z_size), 
+                         $fn=bar_fn);
     }
 }
 
@@ -224,52 +228,106 @@ module pyramid_cylinder(r=0, h=0, $fn=12)
     cylinder(r1=r, r2=r*2, h=h*ch, $fn=$fn);
 }
 
-module box_bolt_pattern_lower(x, y, thickness, truss_xy_thickness, hole_r, clearance_r) {
-  box_one_side_bolts(x, y, thickness, hole_r, 0, clearance_r, false);
+/* box_bolt_pattern_side(), box_bolt_pattern_lower() and
+   box_bolt_pattern_upper() can be used to add bolt mount points in
+   the trusses for bolting many trusses together.
+
+   x, y, z: Truss dimensions
+   thickness: Thickness of the bolt mount plate
+   truss_xy_thickness: The thickness of the truss elements, used when 
+     adding some support structure inside the truss.
+   hole_r: Radius of the bolt hole
+   hex_r: Radius of the hex nut trap inside the support cone for the 
+     upper bolt mounts 
+   clearance_r: Radius of clearance around the bolt, determines the 
+     size of the plate
+   near: Determines whether the side bolt mounts are added near the 
+     Y=0 or at the far end
+*/
+
+module box_bolt_pattern_side(x, y, z, thickness, truss_xy_thickness, 
+                             hole_r, clearance_r, near) {
+  intersection() {
+    translate([0, near ? thickness : y, 0])
+      rotate([90, 0, 0]) {
+        box_one_side_bolts(x, z, thickness, hole_r, 0, clearance_r, 
+                           false, true);
+        translate([x, 0, 0])
+          mirror([1, 0, 0])
+            box_one_side_bolts(x, z, thickness, hole_r, 0, clearance_r, 
+                               false, true);
+        cube([truss_xy_thickness, z, thickness]);
+        translate([x-truss_xy_thickness, 0, 0])
+          cube([truss_xy_thickness, z, thickness]);
+    }
+    /* Cut out the teardrop bits from negative Z values */
+    translate([-clearance_r*2, 0, 0])
+      cube([x+clearance_r*4, y, z]);
+  }
+}
+
+module box_bolt_pattern_lower(x, y, thickness, truss_xy_thickness, 
+                              hole_r, clearance_r) {
+  box_one_side_bolts(x, y, thickness, hole_r, 0, clearance_r, false, false);
   translate([x, 0, 0])
     mirror([1, 0, 0])
-      box_one_side_bolts(x, y, thickness, hole_r, 0, clearance_r, false);
-    cube([truss_xy_thickness, y, thickness]);
+      box_one_side_bolts(x, y, thickness, hole_r, 0, clearance_r, 
+                         false, false);
+  cube([truss_xy_thickness, y, thickness]);
   translate([x-truss_xy_thickness, 0, 0])
     cube([truss_xy_thickness, y, thickness]);
-
 }
 
 module box_bolt_pattern_upper(x, y, z, thickness, truss_xy_thickness,
                               hole_r, hex_r, clearance_r) {
   translate([0, 0, z - thickness]) {
-    box_one_side_bolts(x, y, thickness, hole_r, hex_r, clearance_r, true);
+    box_one_side_bolts(x, y, thickness, hole_r, hex_r, clearance_r, 
+                       true, false);
     translate([x, 0, 0])
       mirror([1, 0, 0])
-        box_one_side_bolts(x, y, thickness, hole_r, hex_r, clearance_r, true);
+        box_one_side_bolts(x, y, thickness, hole_r, hex_r, clearance_r, 
+                           true, false);
   }
   translate([0, 0, z-clearance_r*2-thickness-truss_xy_thickness])
     intersection() {
-      cube([truss_xy_thickness, y, clearance_r*2+thickness+truss_xy_thickness]);
+      cube([truss_xy_thickness, y, 
+            clearance_r*2+thickness+truss_xy_thickness]);
       translate([truss_xy_thickness/2, 0, 0])
         rotate([0, -45, 0])
           cube([clearance_r*3, y, clearance_r*3]);
     }
   translate([x, 0, 0])
-  mirror([1, 0, 0])
-  translate([0, 0, z-clearance_r*2-thickness-truss_xy_thickness])
-    intersection() {
-      cube([truss_xy_thickness, y, clearance_r*2+thickness+truss_xy_thickness]);
-      translate([truss_xy_thickness/2, 0, 0])
-        rotate([0, -45, 0])
-          cube([clearance_r*3, y, clearance_r*3]);
-    }
+    mirror([1, 0, 0])
+      translate([0, 0, z-clearance_r*2-thickness-truss_xy_thickness])
+        intersection() {
+          cube([truss_xy_thickness, y, 
+                clearance_r*2+thickness+truss_xy_thickness]);
+          translate([truss_xy_thickness/2, 0, 0])
+            rotate([0, -45, 0])
+              cube([clearance_r*3, y, clearance_r*3]);
+        }
 }
 
-module box_one_side_bolts(x, y, thickness, hole_r, hex_r, clearance_r, supported) {
+module box_one_side_bolts(x, y, thickness, hole_r, hex_r, clearance_r, 
+                          supported, teardrop) {
   for (offset = [0 , y - 2*clearance_r]) {
     intersection () {
       union () {
         translate([-clearance_r, clearance_r+offset, 0])
           difference() {
             union () {
-              translate([0, 0, -clearance_r*3])
+              translate([0, 0, -clearance_r*3]) {
                 cylinder(r=clearance_r, h=thickness+clearance_r*3);
+                
+              }
+              if (teardrop) {
+                intersection() {
+                  rotate([0, 0, -45]) translate([0, -clearance_r, 0])
+                    cube([clearance_r*3, clearance_r*2, thickness]);
+                  translate([-clearance_r, -clearance_r*4, 0])
+                    cube([clearance_r*2, clearance_r*4, thickness]);
+                }
+              }
               translate([0, -clearance_r, -clearance_r*3])
                 cube([clearance_r, clearance_r*2, thickness+clearance_r*3]);
             }
@@ -292,9 +350,5 @@ module box_one_side_bolts(x, y, thickness, hole_r, hex_r, clearance_r, supported
   }
 }
 
-//pyramid_truss(180, 100, 30, 3, 2, 3.5, 5, 5, 5, 12, 0);
-//multi_pyramid_truss(180, 100, 60, 4, 4, 3, 3.5, 5, 5, 5, 12);
-//multi_pyramid_cube_truss(180, 100, 60, 4, 3, 2, 3.5, 5, 5, 5, 12);
-tw = 3.4; // slat width for testing
-//pyramid_box_truss(70, 70, 70, 2, 2, 2, tw*6, tw*6, tw*6, tw*6, 1, 1, 12);
-//pyramid_box_truss(30, 30, 30, 1, 1, 2, tw, tw, tw, tw, 1, 1, 12);
+sw = 3.4; // slat width for testing
+//pyramid_box_truss(40, 40, 40, 1, 1, 2, sw, sw, sw, sw, 1, 1, 12);
