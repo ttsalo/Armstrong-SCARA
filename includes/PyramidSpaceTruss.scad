@@ -353,4 +353,9 @@ module box_one_side_bolts(x, y, thickness, hole_r, hex_r, clearance_r,
 }
 
 sw = 3.4; // slat width for testing
-pyramid_box_truss(40, 40, 40, 3, 3, 2, sw, sw, sw, sw/2, 1, 1, 12);
+for (x = [0 : 3]) {
+  for (y = [0 : 3]) {
+    translate([50*x, 50*y, 0])
+      pyramid_box_truss(40, 40, 40, 1, 1, 2, sw, sw, sw, sw + x*0.1 + y*0.4, 1, 1, 12);
+  }
+}
