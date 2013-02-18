@@ -152,8 +152,10 @@ carr_top_support_length = 70;
 z_end_bottom_thickness = 7;
 z_end_bottom_width = arm_spacing + 20;
 z_end_bottom_length = 40;
-z_end_top_length = 50;
+z_end_top_length = 55;
+z_end_top_thickness = 7;
 z_end_bottom_height = 30;
+z_end_top_height = 30;
 z_end_rod_offset = 24; // rod center from vertical plate
 
 // Printable area and bed
@@ -169,6 +171,7 @@ echo(str("Print area Y=0 offset from vertical frame: ", print_ymin_frame_offset)
 frame_bottom_height = 30;
 frame_bottom_length = 100;
 frame_back_height = 80;
+frame_top_height = 80;
 frame_extend_height = 80;
 frame_back_depth = 40;
 frame_back_width = arm_spacing;
@@ -182,6 +185,11 @@ frame_back_truss_z_thickness = 2.4;
 frame_back_truss_xy_thickness = 3.4;
 frame_back_truss_k_thickness = 3.4;
 frame_back_truss_bar_diameter = 3.4;
+
+frame_top_truss_z_thickness = 2.4;
+frame_top_truss_xy_thickness = 3.4;
+frame_top_truss_k_thickness = 3.4;
+frame_top_truss_bar_diameter = 3.4;
 
 frame_extend_truss_z_thickness = 2.4;
 frame_extend_truss_xy_thickness = 3.4;
