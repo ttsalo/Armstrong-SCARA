@@ -176,14 +176,17 @@ frame_back_width = arm_spacing;
 frame_bottom_truss_z_thickness = 2.4;
 frame_bottom_truss_xy_thickness = 3.4;
 frame_bottom_truss_k_thickness = 3.4;
-frame_bottom_truss_bar_diameter = 3.4;
+frame_bottom_truss_bar_diameter = 3.9;
+frame_bottom_truss_vert_thickness = 4.5;
 
 frame_back_truss_z_thickness = 2.4;
 frame_back_truss_xy_thickness = 3.4;
 frame_back_truss_k_thickness = 3.4;
-frame_back_truss_bar_diameter = 3.4;
+frame_back_truss_bar_diameter = 3.9;
+frame_back_truss_vert_thickness = 4.5;
 
 frame_extend_truss_z_thickness = 2.4;
 frame_extend_truss_xy_thickness = 3.4;
 frame_extend_truss_k_thickness = 3.4;
-frame_extend_truss_bar_diameter = 3.4;
+frame_extend_truss_bar_diameter = 3.9;
+frame_extend_truss_vert_thickness = 4.5;
