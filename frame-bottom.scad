@@ -19,7 +19,7 @@ module frame_bottom() {
         /* Horizontal truss. */
         pyramid_box_truss(arm_spacing, frame_bottom_length,
                                        frame_bottom_height,
-                                       2, 3, 2, frame_bottom_truss_z_thickness, 
+                                       3, 3, 2, frame_bottom_truss_z_thickness, 
                                        frame_bottom_truss_xy_thickness,
                                        frame_bottom_truss_k_thickness,
                                        frame_bottom_truss_bar_diameter, 
