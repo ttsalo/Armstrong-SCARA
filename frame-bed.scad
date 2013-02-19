@@ -24,13 +24,17 @@ module frame_bed() {
       translate([-arm_spacing/2, 0, 0])
         box_bolt_pattern_side(arm_spacing, frame_bottom_length, frame_bottom_height,
                               5, frame_back_truss_xy_thickness, 2, 6, true);
+      translate([-arm_spacing/2, 0, 0])
+        box_bolt_pattern_side(arm_spacing, fr_unit*2, frame_bottom_height,
+                              5, frame_back_truss_xy_thickness, 2, 6, false);
       for (v = bed_bolts) {
         translate([-print_xmax/2, print_ymin_frame_offset-frame_bottom_length, 0])
           translate(v)
             cylinder(r=bed_bolt_r*2, h=frame_bottom_height);
       }
-    translate([-fr_unit, 0, 0]) frame_bed_truss_piece(2, 1);
-    translate([-fr_unit/2, fr_unit, 0]) frame_bed_truss_piece(1, 3);
+    translate([-fr_unit, 0, 0]) frame_bed_truss_piece(2, 2);
+    
+    //translate([-fr_unit/2, fr_unit, 0]) frame_bed_truss_piece(1, 3);
     }
     for (v = bed_bolts) {
       translate([-print_xmax/2, print_ymin_frame_offset-frame_bottom_length, 0])

@@ -163,7 +163,7 @@ print_ymin = 82; // Y=0 offset from arm bases (verify by simulation, see demo.sc
 print_xmax = 200;
 print_ymin_frame_offset = -carr_rod_offset + z_end_rod_offset + print_ymin;
 bed_bolt_r = 2;
-bed_bolts = [[40, 20, 0], [40, 80, 0], [160, 50, 0]];
+bed_bolts = [[100-170/2, 100-124/2, 0], [100-170/2, 100+124/2, 0], [100+170/2, 100, 0]];
 
 echo(str("Print area Y=0 offset from vertical frame: ", print_ymin_frame_offset));
 
@@ -191,7 +191,8 @@ frame_back_truss_vert_thickness = 4.5;
 frame_top_truss_z_thickness = 2.4;
 frame_top_truss_xy_thickness = 3.4;
 frame_top_truss_k_thickness = 3.4;
-frame_top_truss_bar_diameter = 3.4;
+frame_top_truss_bar_diameter = 3.9;
+frame_top_truss_vert_thickness = 4.5;
 
 frame_extend_truss_z_thickness = 2.4;
 frame_extend_truss_xy_thickness = 3.4;
