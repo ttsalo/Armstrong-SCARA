@@ -40,9 +40,10 @@ module frame_top() {
                                        2, 1, 4, frame_top_truss_z_thickness, 
                                        frame_top_truss_xy_thickness,
                                        frame_top_truss_k_thickness,
-                                       frame_back_truss_bar_diameter, true, true, 10);
+                                       frame_top_truss_bar_diameter, 
+                                       frame_top_truss_vert_thickness, true, true, 10);
           box_bolt_pattern_upper(frame_back_width, frame_back_depth, frame_top_height, 
-                                 frame_top_truss_xy_thickness, 5, 2, 4, 6, 0.3);
+                                 frame_top_truss_xy_thickness, 4.5, 2, 4, 6, 0.3);
   }
 }
 
