@@ -60,9 +60,9 @@ module flexspline_helix_2() {
 	 cylinder(r=flex_inner_r+flex_wt, h=flex_h, $fn=60);
 
 	 // Slope from the flat area to the top teeth.
-	 translate([0, 0, flex_h-tooth_overlap-6])
+	 translate([0, 0, flex_h-tooth_overlap-flex_upper_slope_h])
 	   cylinder(r1=flex_inner_r+flex_wt, r2=flex_outer_r, 
-		    h=6, $fn=60);
+		    h=flex_upper_slope_h, $fn=60);
 
 	 // Top tooth area
 	 translate([0, 0, flex_h-tooth_overlap])

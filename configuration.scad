@@ -18,14 +18,15 @@ drive_bearing_r = 13/2;
 drive_bearing_h = 7;
 
 // Flexspline dimensions
-flex_inner_r = 25.4;
+flex_inner_r = 25.3;
 flex_outer_r = 27.6; // was 27.3; // Outer radius clips the teeth peaks, if needed.
 flex_h = 36;
 flex_bottom_h = 2;
 flex_bolthole_r = 6;
 flex_bottom_tooth_h = 3; // The height of the straigth part of the bottom teeth
-flex_wt = 0.71;
-flex_lip = 1;
+flex_upper_slope_h = 6; // Length of slope from straight part to upper teeth
+flex_wt = 0.81;
+flex_lip = 1; // Wave driver retaining lip thickness
 pitch = 162;
 helix_twist = 0; // 3.5;
 flex_bottom_teeth = 50;
@@ -41,7 +42,7 @@ circ_bottom_h = 4;
 circ_tooth_clearance = -0.5;
 
 // Wave driver dimensions
-wave_radius = 52/2;
+wave_radius = 51.5/2;
 driver_h = 12;
 driver_w = 10;
 driver_tol = 0.15;
