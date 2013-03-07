@@ -1,6 +1,6 @@
 // Harmonic drive main parameters
 press_angle = 35;
-flex_teeth = 60;
+flex_teeth = 80;
 teeth_diff = 2;
 
 tol = 0.25; // generic tolerance used in some places
@@ -27,7 +27,7 @@ flex_bottom_tooth_h = 3; // The height of the straigth part of the bottom teeth
 flex_upper_slope_h = 6; // Length of slope from straight part to upper teeth
 flex_wt = 0.81;
 flex_lip = 1; // Wave driver retaining lip thickness
-pitch = 162;
+pitch = 120.5;
 helix_twist = 0; // 3.5;
 flex_bottom_teeth = 50;
 flex_bottom_pitch = 197;
@@ -39,7 +39,7 @@ circ_outer_r = 34;
 circ_inner_r = 30;
 circ_bottom_h = 4;
 // Negative clearance cuts a bit from the top of the teeth
-circ_tooth_clearance = -0.5;
+circ_tooth_clearance = -0.25;
 
 // Wave driver dimensions
 wave_radius = 51.5/2;
