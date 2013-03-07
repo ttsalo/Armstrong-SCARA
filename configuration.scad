@@ -98,7 +98,7 @@ truss_xy_thickness = 3.4*(0.25/0.3);
 truss_k_thickness = 3.4*(0.25/0.3);
 truss_bar_diameter = 3.9*(0.25/0.3);
 
-carr_truss_bar_diameter = 3.9;
+carr_truss_bar_diameter = 3.25;
 carr_truss_thickness = 5;
 carr_truss_width_coeff = 0.75;
 carr_truss_radius = 0.1;
