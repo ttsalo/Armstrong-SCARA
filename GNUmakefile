@@ -2,7 +2,7 @@ SHELL = /bin/sh
 
 INCLUDES = common.scad configuration.scad
 
-world: flexspline.stl circspline.stl circspline-spline.stl circspline-motor-mount.stl wave-rotor.stl arm11.stl arm12.stl arm21.stl arm22.stl z-carriage.stl z-end-bottom.stl z-end-top.stl z-end-support.stl
+world: flexspline.stl circspline.stl circspline-spline.stl circspline-motor-mount.stl wave-rotor.stl arm11.stl arm12.stl arm21.stl arm22.stl z-carriage.stl z-end-bottom.stl z-end-top.stl z-end-support.stl frame-bed.stl frame-bottom.stl frame-extension.stl frame-extension-double.stl frame-top.stl
 
 %.stl : %.scad $(INCLUDES)
 	openscad -o $@ $<
