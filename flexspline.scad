@@ -69,9 +69,14 @@ module flexspline_helix_2() {
 	   cylinder(r=flex_outer_r, h=tooth_overlap+1, $fn=60);
        }
      }
+
      difference() {
-       translate([0, 0, flex_bottom_h])
-         cylinder(r=flex_inner_r, h=flex_h - flex_bottom_h, $fn=60);
+       union () {
+         translate([0, 0, flex_bottom_h])
+           cylinder(r=flex_inner_r, h=flex_h - flex_bottom_h - tooth_overlap, $fn=60);
+         translate([0, 0, flex_h-tooth_overlap])
+           cylinder(r=flex_inner_r-flex_extra_upper_wt, h=tooth_overlap, $fn=60);
+       }
        difference() {
          translate([0, 0, flex_h-tooth_overlap-flex_lip])
            cylinder(r=flex_inner_r, h=flex_lip, $fn=60);

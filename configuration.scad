@@ -25,9 +25,11 @@ flex_bottom_h = 2;
 flex_bolthole_r = 6;
 flex_bottom_tooth_h = 3; // The height of the straigth part of the bottom teeth
 flex_upper_slope_h = 6; // Length of slope from straight part to upper teeth
-flex_wt = 0.81;
-flex_lip = 1; // Wave driver retaining lip thickness
-pitch = 120.5;
+flex_wt = 0.81; // Wall thickness of the straigt part
+flex_extra_upper_wt = 0.4; // Extra wall thickness for the inside of the upper toothed part
+flex_lip = 1.4; // Wave driver retaining lip thickness
+pitch = 120.5; // Tooth pitch. Tune this to make the tooth valleys line up with the
+               // outer surface.
 helix_twist = 0; // 3.5;
 flex_bottom_teeth = 50;
 flex_bottom_pitch = 197;
