@@ -44,7 +44,7 @@ circ_bottom_h = 4;
 circ_tooth_clearance = -0.25;
 
 // Wave driver dimensions
-wave_radius = 51.5/2;
+wave_radius = 51.25/2;
 driver_h = 12;
 driver_w = 10;
 driver_tol = 0.15;
