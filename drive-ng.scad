@@ -23,12 +23,13 @@ tol = 0.25;
 bearing_inner_r = 60/2;
 bearing_outer_r = 95/2;
 bearing_h = 18;
-bearing_cone_l = 1; // Length of the bearing conical section 
+bearing_cone_l = 1.25; // Length of the bearing conical section 
 
 flange_r = 45;
 flange_h = 2;
 
 flex_flange_r = flange_r;
+flex_flange_cut_r = 20;
 flex_flange_h = flange_h;
 flex_flange_sep = 5; // Distance from bearing to flange
 flex_inner_t = 2.5; // Outer side thickness of the bearing support
@@ -39,9 +40,10 @@ flex_base_t = 8;
 flex_lockring_h = 2;
 flex_lockring_t = 2;
 flex_conn_w = 5;
-flex_conn_n = 3;
+flex_conn_n = 6;
 
 circ_flange_r = flange_r;
+circ_flange_cut_r = 30;
 circ_flange_h = flange_h;
 circ_flange_sep = 5; // Distance from bearing to flange
 circ_outer_t = 3; // Outer side thickness of the bearing support
@@ -52,7 +54,7 @@ circ_base_t = 8;
 circ_lockring_h = 2;
 circ_lockring_t = 2;
 circ_conn_w = 5;
-circ_conn_n = 3;
+circ_conn_n = 6;
 
 $fn=64;
 
@@ -82,7 +84,10 @@ module bearing() {
    the flange. */
 
 module flex_flange() {
-  cylinder(r=flex_flange_r, h=flex_flange_h);
+  difference() {
+    cylinder(r=flex_flange_r, h=flex_flange_h);
+    translate([0, 0, -0.5]) cylinder(r=flex_flange_cut_r, h=flex_flange_h+1);
+  }
   for (i = [0 : 360/flex_conn_n : 360]) {
     intersection() {
     rotate([0, 0, i])
@@ -118,7 +123,10 @@ module flex_flange() {
 }
 
 module circ_flange() {
-  cylinder(r=circ_flange_r, h=circ_flange_h);
+  difference() {
+    cylinder(r=circ_flange_r, h=circ_flange_h);
+    translate([0, 0, -0.5]) cylinder(r=circ_flange_cut_r, h=flex_flange_h+1);
+  }
   for (i = [0 : 360/circ_conn_n : 360]) {
     intersection() {
     rotate([0, 0, i])
@@ -186,4 +194,6 @@ difference() {
 }
 }
 
-assembly();
+//assembly();
+
+circ_flange();
