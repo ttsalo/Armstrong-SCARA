@@ -20,6 +20,7 @@
 use <includes/parametric_involute_gear_v5.0.scad>;
 
 tol = 0.1;
+lh = 0.25;
 
 /* 6012 size bearing */
 bearing_inner_r = 60/2;
@@ -43,6 +44,9 @@ flex_lockring_h = 2;
 flex_lockring_t = 2;
 flex_conn_w = 5;
 flex_conn_n = 6;
+flex_mount_r = 35;
+flex_mount_n = 6;
+flex_bolt_r = 2;
 
 /* Circspline side flange details. */
 circ_flange_r = flange_r;
@@ -66,9 +70,21 @@ flexspl_bottom_h = 2;
 flexspl_slope_h = 6;
 flexspl_inner_r = 25.3;
 flexspl_outer_r = 27.3;
+flexspl_bolt_r = 2;
+flexspl_nut_r = 4;
+flexspl_nut_h = 3;
 flexspl_wall_t = 0.81;
 flexspl_extra_wall_t = 0.4;
 flexspl_lip = 1.4;
+flexspl_rifling_extra=5;
+
+/* Rifling connects flexspline to the flange. Details below. */
+flex_rifling_r = 8;
+flex_rifling_w = 2;
+flex_rifling_l = 2;
+flex_rifling_n = 12;
+flex_rifling_h = 2;
+flex_rifling_tol = 0.2;
 
 /* Drive tooth profile main variables. */
 press_angle = 35;
@@ -79,6 +95,19 @@ pitch = 120.5;
 $fn=64;
 
 echo(str("Inner clearance diameter: ", (bearing_inner_r-flex_inner_t)*2));
+
+module roundedCylinder(r, h, rr, $fn) {
+  cylinder(r=r-rr, h=h, $fn=$fn);
+  translate([0, 0, rr]) cylinder(r=r, h=h-2*rr, $fn=$fn);
+  translate([0, 0, rr])
+    rotate_extrude(convexity=10, $fn=$fn)
+      translate([r-rr, 0, 0]) 
+        circle(r=rr, $fn=16);
+  translate([0, 0, h-rr])
+    rotate_extrude(convexity=10, $fn=$fn)
+      translate([r-rr, 0, 0]) 
+        circle(r=rr, $fn=16);
+}
 
 module bearing() {
   color("blue")
@@ -105,7 +134,21 @@ module bearing() {
 
 module flex_flange() {
   difference() {
-    cylinder(r=flex_flange_r, h=flex_flange_h);
+    union() {
+      cylinder(r=flex_flange_r, h=flex_flange_h);
+      // Rifled mounting
+      translate([0, 0, flex_flange_h])
+        rifled_cylinder(r=flex_rifling_r, h=flex_rifling_h, 
+                        r_l=flex_rifling_l,
+                        r_w=flex_rifling_w, r_n=flex_rifling_n, $fn=30);
+    }
+    cylinder(r=flexspl_nut_r, h=flexspl_nut_h, $fn=6);
+    translate([0, 0, flexspl_nut_h+lh])
+      cylinder(r=flexspl_bolt_r, h=flex_flange_h+flex_rifling_h);
+    for (i = [0 : 360/flex_conn_n : 360]) {
+      rotate([0, 0, i+360/flex_conn_n/2]) 
+        translate([flex_mount_r, 0, 0]) cylinder(r=flex_bolt_r, h=flex_flange_h);
+    } 
   }
   for (i = [0 : 360/flex_conn_n : 360]) {
     intersection() {
@@ -215,6 +258,13 @@ module spline_gear(height, backlash, clearance) {
        );
 }
 
+module rifled_cylinder(r, h, r_l, r_w, r_n, $fn) {
+  cylinder(r=r, h=h, $fn=$fn);
+  for (i = [0 : 360/r_n : 360]) {
+    rotate([0, 0, i]) translate([0, -r_w/2, 0]) cube([r+r_l, r_w, h]);
+  }
+}
+
 module flexspline() {
   difference() {
     intersection() {
@@ -224,7 +274,7 @@ module flexspline() {
         // gear shape with the union of the following shapes.
         
         // The flat area, thickness from the wall thickness parameter.
-        cylinder(r=flexspl_inner_r+flexspl_wall_t, h=flexspl_h, $fn=60);
+        roundedCylinder(r=flexspl_inner_r+flexspl_wall_t, h=flexspl_h, rr=1, $fn=60);
         
         // Slope from the flat area to the top teeth.
         translate([0, 0, flexspl_h-flexspl_tooth_h-flexspl_slope_h])
@@ -240,13 +290,19 @@ module flexspline() {
     /* The inner hollow is made by subtracting the following from the lightened gear shape */
     difference() {
       union () {
-        translate([0, 0, flexspl_bottom_h])
-          cylinder(r=flexspl_inner_r, 
-                   h=flexspl_h - flexspl_bottom_h - flexspl_tooth_h, $fn=60);
+        // Main internal void
+        difference() {
+          translate([0, 0, flexspl_bottom_h])
+            roundedCylinder(r=flexspl_inner_r, 
+                     h=flexspl_h - flexspl_bottom_h - flexspl_tooth_h, rr=1, $fn=60);
+            roundedCylinder(r=flexspl_rifling_extra+flex_rifling_r, 
+                            h=flexspl_bottom_h+flex_rifling_h, rr=1, $fn=60);
+        }
         translate([0, 0, flexspl_h-flexspl_tooth_h])
           cylinder(r=flexspl_inner_r-flexspl_extra_wall_t, 
                    h=flexspl_tooth_h, $fn=60);
       }
+      // Driver retaining lip is made be subtracting it from the main void.
       difference() {
         translate([0, 0, flexspl_h-flexspl_tooth_h-flexspl_lip])
           cylinder(r=flexspl_inner_r, h=flexspl_lip, $fn=60);
@@ -256,8 +312,13 @@ module flexspline() {
       }
     }
     
-    // Hole
-    cylinder(r=5, h=5);
+    // Rifled mounting void
+    rifled_cylinder(r=flex_rifling_r+flex_rifling_tol, h=flex_rifling_h, 
+                    r_l=flex_rifling_l+flex_rifling_tol,
+                    r_w=flex_rifling_w, r_n=flex_rifling_n, $fn=30);
+    // Central bolt hole with printing support
+    translate([0, 0, flexspl_bottom_h+lh])
+      cylinder(r=flexspl_bolt_r, h=flexspl_bottom_h);
   }
 }
 
@@ -277,6 +338,6 @@ difference() {
 }
 }
 
-assembly();
+//assembly();
 
-//circ_flange();
+flex_flange();
