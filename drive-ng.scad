@@ -15,6 +15,13 @@
 /* Prototype notes:
    6012 bearing, size 60x95x18
 
+   Results/todo:
+   21.3.2013: First fitting of 12-conn flex flange to bearing. Fit seems very good.
+   Fitting of flexspline to flange: rifled connection seems very good, except that the
+   bridge sag prevents it from seating completely. Add some space to the flexspline side
+   void to help it seat correctly. Clearance with the bearing holders needs to be
+   checked, seems very tight. AP: more height to rifled cylinder void, check that the spline
+   slope is above the bearing holder.
 */   
 
 use <includes/parametric_involute_gear_v5.0.scad>;
@@ -32,18 +39,18 @@ flange_r = 45;
 flange_h = 2;
 
 /* Flexspline side flange details. */
-flex_flange_r = flange_r;
-flex_flange_h = flange_h;
+flex_flange_r = 40;
+flex_flange_h = 3;
 flex_flange_sep = 5; // Distance from bearing to flange
 flex_inner_t = 2.5; // Outer side thickness of the bearing support
-flex_below_hook = 3;
+flex_below_hook = 5;
 flex_above_hook = 2;
 flex_above_h = 3;
 flex_base_t = 8;
 flex_lockring_h = 2;
 flex_lockring_t = 2;
 flex_conn_w = 5;
-flex_conn_n = 6;
+flex_conn_n = 12;
 flex_mount_r = 35;
 flex_mount_n = 6;
 flex_bolt_r = 2;
@@ -145,7 +152,7 @@ module flex_flange() {
     cylinder(r=flexspl_nut_r, h=flexspl_nut_h, $fn=6);
     translate([0, 0, flexspl_nut_h+lh])
       cylinder(r=flexspl_bolt_r, h=flex_flange_h+flex_rifling_h);
-    for (i = [0 : 360/flex_conn_n : 360]) {
+    for (i = [0 : 360/flex_mount_n : 360]) {
       rotate([0, 0, i+360/flex_conn_n/2]) 
         translate([flex_mount_r, 0, 0]) cylinder(r=flex_bolt_r, h=flex_flange_h);
     } 
@@ -340,4 +347,6 @@ difference() {
 
 //assembly();
 
-flex_flange();
+//flex_flange();
+//flex_lockring();
+flexspline();
