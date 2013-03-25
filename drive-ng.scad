@@ -42,6 +42,13 @@ bearing_outer_r = 95/2;
 bearing_h = 18;
 bearing_cone_l = 1.25; // Length of the bearing conical section 
 
+/* 6812 size bearing */
+/* bearing_inner_r = 60/2;
+bearing_outer_r = 78/2;
+bearing_h = 10;
+bearing_cone_l = 1.25; */ // Length of the bearing conical section 
+
+
 flange_r = 45;
 flange_h = 2;
 
