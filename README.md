@@ -6,7 +6,7 @@ objects, but is very much in the prototype/alpha stage.
 NOTE! The STL files may be out of date at any given time. If you want to
 reproduce this, use the SCAD files instead.
 
-Concise contruction instructions:
+Concise construction instructions:
 
 1. Print plastic parts. You need:
  1 x arm11
